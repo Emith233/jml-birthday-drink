@@ -77,6 +77,12 @@ textarea {
   transition: width .2s ease;
 }
 
+.boot-loader em {
+  color: var(--muted);
+  font-size: 13px;
+  font-style: normal;
+}
+
 html,
 body {
   min-height: 100dvh;
