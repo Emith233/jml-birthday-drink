@@ -64,9 +64,8 @@
     </section>
 
     <section id="shake" class="screen center-screen">
-      <div class="shaker-wrap"><img id="shaker" class="shaker" src="../素材/角色/比格酒保-摇酒-统一背景.webp" alt="店长正在摇饮" /></div>
-      <h1>摇一摇</h1><p>左右晃动你的手机，或者点击调饮壶</p>
-      <button id="shakeAction" class="primary">开始摇饮</button><div class="progress"><i id="progress"></i></div>
+      <div id="shakeTap" class="shaker-wrap shake-tap" role="button" tabindex="0" aria-label="点按调饮壶代替摇晃"><img id="shaker" class="shaker" src="../素材/角色/比格酒保-摇酒-统一背景.webp" alt="店长正在摇饮" /><span>点按调饮壶代替摇晃</span></div>
+      <h1>摇一摇</h1><p>左右晃动手机，累计摇晃 8 次</p><strong id="shakeCount" class="shake-count">0 / 8</strong><div class="progress"><i id="progress"></i></div>
     </section>
 
     <section id="result" class="screen center-screen">
