@@ -223,6 +223,32 @@ body {
   color: #a07c48;
 }
 
+#mix.screen {
+  height: calc(100dvh - 56px);
+  min-height: 0;
+  overflow: hidden;
+}
+
+#mix.screen .ingredient-stage {
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: auto;
+}
+
+#mix.screen .ingredient-stage > img {
+  object-fit: fill;
+}
+
+.result-message {
+  width: 100%;
+  min-height: 20px;
+  margin: 12px 0 4px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+  opacity: .82;
+}
+
 .end-screen h1 {
   margin-bottom: 22px;
 }
