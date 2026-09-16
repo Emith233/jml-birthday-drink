@@ -236,7 +236,8 @@ body {
 }
 
 #mix.screen .ingredient-stage > img {
-  object-fit: fill;
+  object-fit: contain;
+  background: #f4e9d2;
 }
 
 .result-message {
