@@ -7,9 +7,11 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="hotspots.css" />
   <link rel="stylesheet" href="ui.css" />
+  <link rel="preload" href="../素材/音乐/Sugar Rim Surprise.m4a" as="audio" type="audio/mp4" />
 </head>
 <body>
   <main class="phone" aria-live="polite">
+    <div id="bootLoader" class="boot-loader" aria-live="polite"><div class="boot-loader-mark">✦</div><strong>饮品店准备中</strong><span id="bootStatus">正在准备第一杯心意……</span><div class="boot-progress"><i id="bootProgress"></i></div></div>
     <div id="transition" class="transition" aria-hidden="true"><img src="../素材/角色/比格酒保-忙碌转场.webp" alt="" /><b>比格忙碌中……</b></div>
     <header class="topbar"><span>9.17</span><span id="chapterLabel" class="tiny">第一位客人 · 小猪</span><button id="musicBtn" class="music-btn" type="button">♫ 播放音乐</button></header>
     <audio id="bgm" preload="auto" aria-label="背景音乐" src="../素材/音乐/Sugar Rim Surprise.m4a"></audio>
@@ -18,7 +20,7 @@
       <div class="welcome-hero"><img src="../素材/角色/比格酒保-忙碌转场.webp" alt="比格店长准备开门" /></div>
       <span class="eyebrow">店长，饮品店要开门了！</span>
       <input id="playerName" class="name-input" maxlength="12" placeholder="输入你的名字" autocomplete="nickname" />
-      <button id="beginBtn" class="primary">开门 <span>→</span></button><small class="audio-tip">可用右上角按钮播放或暂停音乐</small>
+      <button id="beginBtn" class="primary disabled" disabled>正在准备… <span>·</span></button><small class="audio-tip">可用右上角按钮播放或暂停音乐</small>
     </section>
 
     <section id="story" class="screen">

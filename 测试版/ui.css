@@ -22,6 +22,61 @@ textarea {
   min-height: 100dvh;
 }
 
+.boot-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: #fff9eb;
+  color: var(--ink);
+  opacity: 1;
+  transition: opacity .35s ease, visibility .35s ease;
+}
+
+.boot-loader.ready {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.boot-loader-mark {
+  color: #e9ae46;
+  font-size: 42px;
+  line-height: 1;
+}
+
+.boot-loader strong {
+  color: var(--coral);
+  font-size: 22px;
+}
+
+.boot-loader > span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.boot-progress {
+  width: 180px;
+  height: 6px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eadfce;
+}
+
+.boot-progress i {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--coral);
+  transition: width .2s ease;
+}
+
 html,
 body {
   min-height: 100dvh;
