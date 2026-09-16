@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>今天喝什么？</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="hotspots.css" />
+  <link rel="stylesheet" href="ui.css" />
+</head>
+<body>
+  <main class="phone" aria-live="polite">
+    <div id="transition" class="transition" aria-hidden="true"><img src="../素材/角色/比格酒保-忙碌转场.webp" alt="" /><b>比格忙碌中……</b></div>
+    <header class="topbar"><span>9.17</span><span id="chapterLabel" class="tiny">第一位客人 · 小猪</span><button id="musicBtn" class="music-btn" type="button">♫ 播放音乐</button></header>
+    <audio id="bgm" preload="auto" aria-label="背景音乐" src="../素材/音乐/Sugar Rim Surprise.m4a"></audio>
+
+    <section id="welcome" class="screen active welcome-screen">
+      <div class="welcome-hero"><img src="../素材/角色/比格酒保-忙碌转场.webp" alt="比格店长准备开门" /></div>
+      <span class="eyebrow">店长，饮品店要开门了！</span>
+      <input id="playerName" class="name-input" maxlength="12" placeholder="输入你的名字" autocomplete="nickname" />
+      <button id="beginBtn" class="primary">开门 <span>→</span></button><small class="audio-tip">可用右上角按钮播放或暂停音乐</small>
+    </section>
+
+    <section id="story" class="screen">
+      <div class="scene-art"><img id="storyImage" src="../素材/场景/01-小猪客人.webp" alt="小猪来到酒馆" /></div>
+      <div class="dialogue"><div id="storySpeaker" class="speaker">小猪客人</div><p id="storyText">“今天是一个特别的日子……可以给我一杯甜甜的、像雨后一样的饮料吗？”</p><button id="storyButton" class="primary">开始调饮料 <span>→</span></button></div>
+    </section>
+
+    <section id="mix" class="screen">
+      <div class="mix-head"><div><span class="eyebrow">第一步 · 选择材料</span><h1>挑选三种材料</h1></div><span id="count">0 / 3</span></div>
+      <p class="mix-intro">从制作台里选择三种材料</p>
+      <div class="selected" id="selected"><span class="placeholder">把你想加入的材料放到这里</span></div>
+      <div class="ingredient-stage" id="ingredients">
+        <img src="../素材/调酒材料/调饮制作台.webp" alt="厨房制作台上的十二种调饮材料" />
+        <svg class="ingredient-guides" viewBox="0 0 1086 1448" aria-hidden="true">
+          <path data-outline="strawberry" d="M286 424 C274 388 292 355 329 351 C370 347 397 377 389 419 C383 458 351 482 316 473 C298 468 289 450 286 424Z" />
+          <path data-outline="lemon" d="M431 408 C433 368 462 347 502 352 C535 356 557 382 549 414 C539 450 501 468 464 454 C441 445 430 430 431 408Z" />
+          <path data-outline="mint" d="M596 433 C588 403 607 375 633 382 C638 349 665 344 680 369 C705 350 730 366 721 394 C748 399 751 426 726 438 C699 451 622 460 596 433Z" />
+          <path data-outline="honey" d="M829 359 C831 339 846 328 866 331 L907 336 C925 339 935 354 932 373 L925 449 C923 468 910 478 889 476 L850 470 C831 467 823 451 825 433Z" />
+          <path data-outline="soda" d="M77 794 L80 625 C81 603 97 590 119 594 L143 599 C160 603 168 617 166 637 L157 797 C155 818 143 830 121 827 L99 822 C82 818 76 808 77 794Z" />
+          <path data-outline="star_sugar" d="M270 900 L303 854 L292 802 L344 823 L397 805 L384 855 L418 902 L361 889 L318 914Z" />
+          <path data-outline="blueberry" d="M505 933 C493 902 507 875 535 868 C541 837 571 827 594 849 C615 824 647 838 648 870 C677 876 690 906 672 929 C649 958 532 964 505 933Z" />
+          <path data-outline="peach" d="M766 937 C743 896 750 852 785 824 C820 796 870 807 895 842 C920 877 908 930 872 956 C830 985 786 973 766 937Z" />
+          <path data-outline="coffee" d="M112 1119 C114 1070 151 1037 204 1040 C258 1044 291 1077 286 1122 C280 1166 240 1187 183 1180 C131 1174 109 1155 112 1119Z" />
+          <path data-outline="cream" d="M437 1127 C437 1091 458 1068 492 1066 L542 1071 C575 1075 592 1102 585 1137 L578 1181 C572 1211 544 1225 510 1218 L468 1210 C441 1205 433 1178 437 1127Z" />
+          <path data-outline="orange" d="M724 1170 C736 1122 769 1088 814 1082 C834 1080 855 1087 871 1099 L803 1183Z" />
+          <path data-outline="cherry" d="M944 1130 C949 1100 971 1081 1000 1087 C1029 1093 1041 1120 1032 1149 C1023 1179 996 1194 969 1183 C946 1173 939 1157 944 1130Z" />
+        </svg>
+      </div>
+      <button id="shakeBtn" class="primary disabled" disabled>选好啦，摇一摇 <span>✦</span></button>
+      <p id="mixHint" class="hint">请选择 3 种材料</p>
+    </section>
+
+    <section id="customize" class="screen">
+      <div class="mix-head"><div><span class="eyebrow">第三步 · 写下心意</span><h1>给做好的饮料取名字</h1></div></div>
+      <div class="custom-preview" id="customPreview"></div>
+      <label class="field-label" for="drinkName">饮品名称</label><input id="drinkName" class="text-input" maxlength="18" placeholder="输入饮品名称" />
+      <label class="field-label" for="drinkMessage">寄语</label><textarea id="drinkMessage" class="text-input message-input" maxlength="60" placeholder="写一句寄语"></textarea>
+      <button id="confirmDrink" class="primary">确认并继续剧情 <span>→</span></button>
+      <p class="hint">确认后返回当前客人的剧情。</p>
+    </section>
+
+    <section id="shake" class="screen center-screen">
+      <div class="shaker-wrap"><img id="shaker" class="shaker" src="../素材/角色/比格酒保-摇酒-统一背景.webp" alt="店长正在摇饮" /></div>
+      <h1>摇一摇</h1><p>左右晃动你的手机，或者点击调饮壶</p>
+      <button id="shakeAction" class="primary">开始摇饮</button><div class="progress"><i id="progress"></i></div>
+    </section>
+
+    <section id="result" class="screen center-screen">
+      <div class="result-art"><img id="drinkImage" src="../素材/饮品/独立版/01-草莓晴雨.webp" alt="今日特调" /></div>
+      <span class="eyebrow">今日特调</span><h1 id="resultTitle">今日特调</h1><p id="resultIngredients">三种材料，刚刚好</p>
+      <button id="resultButton" class="primary">继续剧情 <span>→</span></button>
+    </section>
+
+    <section id="end" class="screen center-screen end-screen">
+      <div class="final-art"><img src="../素材/场景/05-最终庆祝.webp" alt="大家一起为店长庆祝生日" /></div>
+      <span class="eyebrow">最后一杯</span><h1 id="finalTitle">生日快乐，店长</h1><div class="card-note">「祝焦美琳生日快乐！我觉得你做给自己的饮品应该会是不错的礼物！<br>希望你能天天开心！」</div><strong>大家一起庆祝吧！</strong>
+      <button class="ghost" id="restart">再看一遍</button>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

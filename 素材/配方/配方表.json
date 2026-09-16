@@ -1,0 +1,31 @@
+{
+  "date": "9.17",
+  "ingredients": [
+    { "id": "strawberry", "name": "草莓", "file": "调酒材料/单项/01-草莓.png" },
+    { "id": "lemon", "name": "柠檬", "file": "调酒材料/单项/02-柠檬.png" },
+    { "id": "mint", "name": "薄荷", "file": "调酒材料/单项/03-薄荷.png" },
+    { "id": "honey", "name": "蜂蜜", "file": "调酒材料/单项/04-蜂蜜.png" },
+    { "id": "soda", "name": "气泡水", "file": "调酒材料/单项/05-气泡水.png" },
+    { "id": "star_sugar", "name": "星星糖", "file": "调酒材料/单项/06-星星糖.png" },
+    { "id": "blueberry", "name": "蓝莓", "file": "调酒材料/单项/07-蓝莓.png" },
+    { "id": "peach", "name": "桃子", "file": "调酒材料/单项/08-桃子.png" },
+    { "id": "coffee", "name": "咖啡豆", "file": "调酒材料/单项/09-咖啡豆.png" },
+    { "id": "cream", "name": "奶油", "file": "调酒材料/单项/10-奶油.png" },
+    { "id": "orange", "name": "橙子", "file": "调酒材料/单项/11-橙子.png" },
+    { "id": "cherry", "name": "樱桃", "file": "调酒材料/单项/12-樱桃.png" }
+  ],
+  "drinks": [
+    { "id": "strawberry_sky", "name": "草莓晴雨", "ingredients": ["strawberry", "soda", "mint"], "file": "饮品/单杯/01-草莓晴雨.png" },
+    { "id": "moonlight_mint", "name": "月下薄荷", "ingredients": ["lemon", "mint", "soda"], "file": "饮品/单杯/02-月下薄荷.png" },
+    { "id": "honey_coffee", "name": "蜂蜜咖啡", "ingredients": ["coffee", "cream", "honey"], "file": "饮品/单杯/03-蜂蜜咖啡.png" },
+    { "id": "blueberry_galaxy", "name": "蓝莓星河", "ingredients": ["blueberry", "star_sugar", "soda"], "file": "饮品/单杯/04-蓝莓星河.png" },
+    { "id": "peach_cream", "name": "桃桃奶盖", "ingredients": ["peach", "cream", "star_sugar"], "file": "饮品/单杯/05-桃桃奶盖.png" },
+    { "id": "midnight_honey", "name": "深夜蜜语", "ingredients": ["coffee", "honey", "star_sugar"], "file": "饮品/单杯/06-深夜蜜语.png" },
+    { "id": "orange_cherry_sunset", "name": "橙樱日落", "ingredients": ["orange", "cherry", "mint"], "file": "饮品/单杯/07-橙樱日落.png" },
+    { "id": "strawberry_mint", "name": "草莓薄荷", "ingredients": ["strawberry", "mint", "lemon"], "file": "饮品/单杯/08-草莓薄荷.png" },
+    { "id": "blueberry_lemon", "name": "蓝莓柠檬", "ingredients": ["blueberry", "lemon", "mint"], "file": "饮品/单杯/09-蓝莓柠檬.png" },
+    { "id": "peach_sunshine", "name": "蜜桃暖阳", "ingredients": ["peach", "honey", "orange"], "file": "饮品/单杯/10-蜜桃暖阳.png" },
+    { "id": "cherry_cloud", "name": "樱桃奶云", "ingredients": ["cherry", "cream", "star_sugar"], "file": "饮品/单杯/11-樱桃奶云.png" },
+    { "id": "birthday_rainbow", "name": "生日彩虹", "ingredients": ["strawberry", "blueberry", "orange"], "file": "饮品/单杯/12-生日彩虹.png" }
+  ]
+}

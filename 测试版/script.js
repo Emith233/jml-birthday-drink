@@ -1,0 +1,53 @@
+const materials=[
+ ['strawberry','草莓','01-草莓.webp'],['lemon','柠檬','02-柠檬.webp'],['mint','薄荷','03-薄荷.webp'],['honey','蜂蜜','04-蜂蜜.webp'],
+ ['soda','气泡水','05-气泡水.webp'],['star_sugar','星星糖','06-星星糖.webp'],['blueberry','蓝莓','07-蓝莓.webp'],['peach','桃子','08-桃子.webp'],
+ ['coffee','咖啡豆','09-咖啡豆.webp'],['cream','奶油','10-奶油.webp'],['orange','橙子','11-橙子.webp'],['cherry','樱桃','12-樱桃.webp']
+];
+const recipes=[
+ {ids:['strawberry','soda','mint'],name:'草莓晴雨',lyric:'酸酸甜甜的心情，像雨停后的第一束光。'},
+ {ids:['lemon','mint','soda'],name:'月下薄荷',lyric:'把夜色摇匀，留一口清醒给自己。'},
+ {ids:['coffee','cream','honey'],name:'蜂蜜咖啡',lyric:'熟悉的香气，是有人记得你的证明。'},
+ {ids:['strawberry','blueberry','orange'],name:'生日彩虹',lyric:'今天的每一种颜色，都在说生日快乐。'}
+];
+const guests=[
+ {name:'小猪',label:'第一位客人 · 小猪',image:'../素材/场景/01-小猪客人.webp',before:[['小猪','晚上好～我刚刚发现这个饮品店，这里是做什么的？'],['owner','客人你好～只要告诉我你想要什么，或者你的心情如何，我就可以帮你制作一杯饮料哦。'],['小猪','我想要酸酸甜甜的饮料呢，如果爽口一点就更好了～'],['owner','好的～']],after:[['小猪','哇，看起来很好喝！'],['小猪','店长，今天是什么特殊的日子吗？旁边放着很——美味的小蛋糕哎！'],['owner','今天是我的生日哦～'],['小猪','哇，居然是这样，生日快乐呀店长～'],['owner','嘿嘿，谢谢～']]},
+ {name:'德文',label:'第二位客人 · 德文',image:'../素材/场景/02-德文猫客人.webp',before:[['德文','店长好～'],['owner','啊德文女士，好久不见，今天来杯什么？'],['德文','今天啊……今天是个特殊的日子，你来替我决定吧，我相信店长的口味。'],['owner','那稍等哦～']],after:[['德文','店长的手艺一如既往的好啊～'],['owner','嘿嘿，能让客人满意就很知足咯。']]},
+ {name:'小熊',label:'第三位客人 · 小熊',image:'../素材/场景/03-小熊客人.webp',before:[['小熊','店长晚上好～今天我专程来一趟哦。'],['owner','哦？为什么？'],['小熊','瞧，这是我给你带的礼物。'],['owner','哇，感谢！为了这个专程跑一趟吗……太破费了。'],['小熊','当然不只是！重点是想喝您制作的特饮了，记得加蜂蜜～'],['owner','好嘞！']],after:[['小熊','没有加蜂蜜吗？莫非是店长的小巧思，让我尝尝……'],['小熊','意外的很好喝啊！']]}
+];
+const ownerBefore=[['旁白','客人们都离开了，你准备为自己做一杯饮料。']];
+const ownerAfter=[['owner','无论是哪一杯，都很好喝……'],['旁白','你拿出蛋糕，准备好好享用一番。'],['旁白','突然，店门打开了！']];
+const finalDialogue=[['小猪&德文&小熊','生日快乐！店长！'],['小猪','店长，饮料真的很好喝！我给你带了礼物哦。'],['德文','生日一起过才热闹。'],['小熊','哈哈哈其实我是在回去路上被拉回来的……因为我已经送过礼物了（小声）……'],['owner','哇，感谢大家！'],['owner','来吃蛋糕吧！'],['德文','哦对，我在门口找到一张贺卡哦……不知道是谁给你的呢，店长。'],['owner','我看看啊……']];
+const hotspot=[['34%','30%'],['48%','30%'],['64%','30%'],['83%','30%'],['14%','55%'],['31%','62%'],['54%','62%'],['76%','62%'],['19%','77%'],['47%','77%'],['75%','77%'],['91%','77%']];
+let guestIndex=0,stage='guest',dialogueMode='before',dialogueIndex=0,currentDialogue=[],chosen=[],ownerName='店长',drinkTitle='',drinkMessage='',shaking=false,musicOn=false,transitionTimer,volumeTimer,loopFading=false,typingTimer,typingDone=true;
+const $=s=>document.querySelector(s),screens=[...document.querySelectorAll('.screen')];
+function go(id,transition=true){clearTimeout(transitionTimer);if(transition){const layer=$('#transition');screens.forEach(x=>x.classList.remove('active'));layer.classList.remove('show');void layer.offsetWidth;layer.classList.add('show');transitionTimer=setTimeout(()=>screens.forEach(x=>x.classList.toggle('active',x.id===id)),120)}else screens.forEach(x=>x.classList.toggle('active',x.id===id));window.scrollTo(0,0)}
+const bgm=$('#bgm');
+function fadeMusic(target,duration=650,done){clearInterval(volumeTimer);const start=bgm.volume,started=Date.now();volumeTimer=setInterval(()=>{const progress=Math.min(1,(Date.now()-started)/duration);bgm.volume=start+(target-start)*progress;if(progress>=1){clearInterval(volumeTimer);volumeTimer=null;if(done)done()}},40)}
+function startMusic(){if(musicOn)return;musicOn=true;loopFading=false;bgm.volume=0;bgm.play().then(()=>fadeMusic(.42,900)).catch(()=>{musicOn=false;$('#musicBtn').textContent='♫ 播放音乐'});$('#musicBtn').textContent='♫ 音乐播放中'}
+function stopMusic(){if(!musicOn)return;musicOn=false;loopFading=false;fadeMusic(0,650,()=>{bgm.pause();$('#musicBtn').textContent='♫ 播放音乐'})}
+$('#musicBtn').onclick=()=>musicOn?stopMusic():startMusic();
+bgm.addEventListener('timeupdate',()=>{if(musicOn&&!loopFading&&bgm.duration&&bgm.duration-bgm.currentTime<.75){loopFading=true;fadeMusic(0,650)}});
+bgm.addEventListener('ended',()=>{if(!musicOn)return;bgm.currentTime=0;bgm.play().then(()=>{loopFading=false;fadeMusic(.42,900)})});
+$('#beginBtn').onclick=()=>{ownerName=$('#playerName').value.trim()||'店长';$('#finalTitle').textContent=`生日快乐，${ownerName}`;startMusic();loadStory(false)};
+function speakerName(key){return key==='owner'?ownerName:key}
+function renderDialogue(){const line=currentDialogue[dialogueIndex];const key=line[0]==='owner'?'owner':line[0]==='旁白'?'narrator':line[0]==='小猪'?'pig':line[0]==='德文'?'devon':line[0]==='小熊'?'bear':'group';const card=$('.dialogue');card.className=`dialogue dialogue-${key}`;$('#storySpeaker').textContent=speakerName(line[0]);clearInterval(typingTimer);typingDone=false;$('#storyText').textContent='';const chars=Array.from(line[1]);let i=0;typingTimer=setInterval(()=>{i++;$('#storyText').textContent=chars.slice(0,i).join('');if(i>=chars.length){clearInterval(typingTimer);typingTimer=null;typingDone=true}},42);const last=dialogueIndex===currentDialogue.length-1;$('#storyButton').textContent=last?(dialogueMode==='before'?'开始调饮料  →':dialogueMode==='final'?'打开贺卡  →':'继续  →'):'继续  →'}
+function loadStory(withTransition=true){const g=guests[guestIndex];stage='guest';dialogueMode='before';dialogueIndex=0;currentDialogue=g.before;$('#chapterLabel').textContent=g.label;$('#storyImage').src=g.image;$('#storyImage').alt=`${g.name}来到酒馆`;renderDialogue();go('story',withTransition)}
+function loadOwnerStory(){stage='owner';dialogueMode='before';dialogueIndex=0;currentDialogue=ownerBefore;$('#chapterLabel').textContent=`${ownerName} · 给自己一杯`;$('#storyImage').src='../素材/场景/04-比格酒保庆祝.webp';$('#storyImage').alt=`${ownerName}准备调饮料`;renderDialogue();go('story')}
+function loadFinalDialogue(){stage='final';dialogueMode='final';dialogueIndex=0;currentDialogue=finalDialogue;$('#chapterLabel').textContent='生日庆祝';$('#storyImage').src='../素材/场景/05-最终庆祝.webp';$('#storyImage').alt='大家一起为店长庆祝生日';renderDialogue();go('story')}
+$('#storyButton').onclick=()=>{if(!typingDone){clearInterval(typingTimer);typingTimer=null;$('#storyText').textContent=currentDialogue[dialogueIndex][1];typingDone=true;return}if(dialogueIndex<currentDialogue.length-1){dialogueIndex++;renderDialogue();return}if(dialogueMode==='before'){chosen=[];render();syncOutlines();go('mix');return}if(dialogueMode==='after'){if(stage==='guest'&&guestIndex<2){guestIndex++;loadStory();return}if(stage==='guest'){loadOwnerStory();return}loadFinalDialogue();return}go('end')};
+const grid=$('#ingredients');
+materials.forEach((m,i)=>{const b=document.createElement('button');b.className=`hotspot spot-${i+1}`;b.dataset.id=m[0];b.style.left=hotspot[i][0];b.style.top=hotspot[i][1];b.innerHTML=`<span>${m[1]}</span>`;b.setAttribute('aria-label',`选择${m[1]}`);b.onclick=()=>toggle(m[0]);grid.appendChild(b)});
+function toggle(id){chosen=chosen.includes(id)?chosen.filter(x=>x!==id):chosen.length<3?[...chosen,id]:chosen;render();syncOutlines()}
+function render(){const box=$('#selected');box.innerHTML=chosen.length?chosen.map(id=>{const m=materials.find(x=>x[0]===id);return `<div class="chip"><button aria-label="移除${m[1]}">×</button><img src="../素材/调酒材料/独立版/${m[2]}" alt=""><span>${m[1]}</span></div>`}).join(''):'<span class="placeholder">点击场景里的材料，放入你的调饮盘</span>';box.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{chosen.splice(i,1);render()});$('#count').textContent=`${chosen.length} / 3`;document.querySelectorAll('.hotspot').forEach(b=>b.classList.toggle('selected-item',chosen.includes(b.dataset.id)));const ok=chosen.length===3;$('#shakeBtn').disabled=!ok;$('#shakeBtn').classList.toggle('disabled',!ok);$('#mixHint').textContent=ok?'三种材料到位，给它写下名字吧':'还差 '+(3-chosen.length)+' 种材料 · 点击场景里的材料';}
+function syncOutlines(){document.querySelectorAll('[data-outline]').forEach(path=>path.classList.toggle('active',chosen.includes(path.dataset.outline)))}
+new MutationObserver(syncOutlines).observe(grid,{subtree:true,attributes:true,attributeFilter:['class']});
+$('#shakeBtn').onclick=()=>{if(chosen.length!==3)return;shaking=false;$('#progress').style.width='0';go('shake')};
+$('#confirmDrink').onclick=()=>{drinkTitle=$('#drinkName').value.trim()||'无名特调';drinkMessage=$('#drinkMessage').value.trim()||'愿这杯饮料带来一点好心情。';showResult();go('result')};
+function prepareCustomize(){ $('#customPreview').innerHTML=chosen.map(id=>{const m=materials.find(x=>x[0]===id);return `<img src="../素材/调酒材料/独立版/${m[2]}" alt="${m[1]}">`}).join('');$('#drinkName').value='';$('#drinkMessage').value=''; }
+function doShake(){if(shaking)return;shaking=true;$('#progress').style.width='100%';$('#shaker').classList.add('wobble');setTimeout(()=>{$('#shaker').classList.remove('wobble');prepareCustomize();go('customize')},650)}
+function selectedRecipe(){const set=new Set(chosen);return recipes.find(r=>r.ids.length===set.size&&r.ids.every(x=>set.has(x)))}
+function comboIndex(ids){const sorted=ids.slice().sort((a,b)=>materials.findIndex(x=>x[0]===a)-materials.findIndex(x=>x[0]===b));let n=0;for(let i=0;i<10;i++)for(let j=i+1;j<11;j++)for(let k=j+1;k<12;k++){n++;if(JSON.stringify([materials[i][0],materials[j][0],materials[k][0]])===JSON.stringify(sorted))return n}return 1}
+function showResult(){const ordered=chosen.slice().sort((a,b)=>materials.findIndex(x=>x[0]===a)-materials.findIndex(x=>x[0]===b)),names=ordered.map(id=>materials.find(x=>x[0]===id)[1]),key=names.join('_');$('#drinkImage').src=`../素材/饮品/逐张生成/${String(comboIndex(ordered)).padStart(3,'0')}-${key}.webp`;$('#resultTitle').textContent=drinkTitle;$('#resultIngredients').textContent=names.join(' · ');$('#resultButton').textContent='继续剧情  →'}
+$('#shakeAction').onclick=doShake;window.addEventListener('devicemotion',e=>{if(Math.abs(e.acceleration?.x||0)+Math.abs(e.acceleration?.y||0)>18)doShake()});
+$('#resultButton').onclick=()=>{dialogueMode='after';dialogueIndex=0;currentDialogue=stage==='owner'?ownerAfter:(guestIndex===2&&chosen.includes('honey')?[['小熊','久违的美味啊……']]:guests[guestIndex].after);renderDialogue();go('story')};
+$('#restart').onclick=()=>{guestIndex=0;stage='guest';go('welcome',false)};
